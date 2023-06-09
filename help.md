@@ -30,4 +30,4 @@
 * `/gayrate` - how gay are you?  :rainbow_flag: 
 * `/rizzrate` - how much rizz do you have? :face_exhaling: 
 * `/racistrate` - how racist are you? :baby_tone5:
-* `/gi.3rlsrate` - how many bitches do you have? :flushed:
+* `/girlsrate` - how many bitches do you have? :flushed:

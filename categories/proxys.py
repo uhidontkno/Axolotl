@@ -291,7 +291,7 @@ class Proxys(commands.Cog):
             with open(os.path.join(proxy_dir, f"{proxy_type.replace(' ', '-')}.txt")) as f:
                 tnum = tnum + len(f.readlines())
         # Create a formatted string with the stats
-        stats_str = "# \🌐 | Proxy Stats"
+        stats_str = "## \🌐 | Proxy Stats"
         for i, proxy_type in enumerate(proxy_types):
             stats_str += f"\n* {proxy_type.capitalize()}: **{pnum[i]}**"
     
@@ -299,7 +299,7 @@ class Proxys(commands.Cog):
         embed = discord.Embed(
             title=" ",
             color=discord.Color.og_blurple(),
-            description=stats_str + f"\n### Total: {tnum}",
+            description=f"### A significant amount of proxies have been wiped as they no longer work. \n"+stats_str + f"\n### Total: {tnum}",
         )
         await ctx.respond(embed=embed, ephemeral=True)
     @commands.Cog.listener()
