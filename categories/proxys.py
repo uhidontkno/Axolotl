@@ -118,6 +118,9 @@ class dispView(discord.ui.View):
             discord.SelectOption(
                 label="Noodle GPT",value="noodlegpt"
             ),
+            discord.SelectOption(
+                label="Kazwire",value="kazwire"
+            ),
         ]
         
     )
