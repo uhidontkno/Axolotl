@@ -1,8 +1,8 @@
 # Axolotl
- A multi-purpose bot including moderation, fun, utility, proxies, etc. 
+ A multi-purpose bot including moderation, fun, utility, proxies, etc. Python 3.11+ for best compatibility, 3.8+
 
 # Installation
-Run `pip install pillow numpy re py-cord discord.py asyncio`, if I miss any, just install them if there is a ModuleNotFound error.
+Run `pip install pillow numpy py-cord discord.py asyncio requests`, if I miss any, just install them if there is a ModuleNotFound error.
 
 # How to setup:
 You need a `token.env` file containing **ONLY** your discord bot's token, 
