@@ -11,18 +11,29 @@ from typing import Dict
 from .libraries.cooldown import Cooldown
 proxy_dir = "proxies"
 proxy_types = [
-          "Artclass",
-          "Emerald",
-          "Holy Unblocker",
-          "Interstellar",
-          "Ludicrous",
-          "Nebula",
-          "Rammerhead",
-          "Shuttle",
-           "TIW",
-           "Ultraviolet",
-           "Void",
+          "artclass",
+          "emerald",
+          "holy-unblocker",
+          "interstellar",
+          "ludicrous",
+          "nebula",
+          "rammerhead",
+          "shuttle",
+           "tiw",
+           "ultraviolet",
+           "void",
         ]
+p_c = {"artclass":"discord.gg/desmos",
+               "nebula":"discord.gg/unblocker",
+               "ultraviolet":"discord.gg/unblock",
+               "tiw":"discord.gg/8dUtxmw8sv",
+               "interstellar":"discord.gg/gointerstellar",
+               "shuttle":"discord.gg/xi",
+               "emerald":"discord.gg/Mvc67DmT4C",
+               "holy-unblocker":"discord.gg/unblock",
+               "rammerhead":"discord.gg/VNT4E7gN5Y",
+               "ludicrous":"discord.gg/unblock",
+               "void":"N/A"}
 
 class MyView(discord.ui.View): # Create a class called MyView that subclasses discord.ui.View
     @discord.ui.button(label="Save to DMs", style=discord.ButtonStyle.gray) 
@@ -103,17 +114,7 @@ class dispView(discord.ui.View):
             )
             return
         proxy = random.choice(proxies).strip()
-        p_c = {"artclass":"discord.gg/desmos",
-               "nebula":"discord.gg/unblocker",
-               "ultraviolet":"discord.gg/unblock",
-               "tiw":"discord.gg/8dUtxmw8sv",
-               "interstellar":"discord.gg/gointerstellar",
-               "shuttle":"discord.gg/xi",
-               "emerald":"discord.gg/Mvc67DmT4C",
-               "holy-unblocker":"discord.gg/unblock",
-               "rammerhead":"discord.gg/VNT4E7gN5Y",
-               "ludicrous":"discord.gg/unblock",
-               "void":"N/A"}
+
         warning = ""
         if (select.values[0] == "emerald"):
             warning = '''\n
@@ -231,17 +232,6 @@ class Proxys(commands.Cog):
             )
             return
         proxy = random.choice(proxies).strip()
-        p_c = {"Artclass":"discord.gg/desmos",
-               "Nebula":"discord.gg/unblocker",
-               "Ultraviolet":"discord.gg/unblock",
-               "TIW":"discord.gg/8dUtxmw8sv",
-               "Interstellar":"discord.gg/gointerstellar",
-               "Shuttle":"discord.gg/xi",
-               "Emerald":"discord.gg/Mvc67DmT4C",
-               "Holy Unblocker":"discord.gg/unblock",
-               "Rammerhead":"discord.gg/VNT4E7gN5Y",
-               "Ludicrous":"discord.gg/unblock",
-               "Void":"N/A"}
         warning = ""
         if (type == "Emerald"):
             warning = '''\n
