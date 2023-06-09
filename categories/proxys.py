@@ -28,6 +28,7 @@ proxy_types = [
            "noodlegpt",
            "bigfoot",
            "utopia",
+           "kazwire"
         ]
 p_c = {"artclass":"discord.gg/desmos",
                "nebula":"discord.gg/unblocker",
@@ -39,7 +40,15 @@ p_c = {"artclass":"discord.gg/desmos",
                "holy-unblocker":"discord.gg/unblock",
                "rammerhead":"discord.gg/VNT4E7gN5Y",
                "ludicrous":"discord.gg/unblock",
-               "void":"N/A"}
+               "void":"discord.gg/uncensor",
+               "noodles":"dsc.gg/ievade",
+               "noodlegpt":"dsc.gg/ievade",
+               "incognito":"discord.gg/unblock",
+               "bigfoot":"discord.com/invite/JYQ4n8DBKM",
+               "jordans-math-work":"N/A",
+               "utopia":"discord.gg/hFZC5cgsmq",
+               "kazwire":"discord.gg/kazchat-785577600219086881"
+               }
 
 class MyView(discord.ui.View): # Create a class called MyView that subclasses discord.ui.View
     @discord.ui.button(label="Save to DMs", style=discord.ButtonStyle.gray) 
