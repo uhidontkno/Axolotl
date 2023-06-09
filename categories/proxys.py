@@ -325,6 +325,8 @@ async def check_proxy(url: str):
     else:
          if response.status_code >= 200 and response.status_code < 400:
              status = f"**\🟢 Working [HTTP {response.status_code}]** \nThis link works!"
+         elif response.status_code == 403:
+             status = f"**\🟡  Might Work [HTTP {response.status_code}]**\n### Rammerhead Proxies normally give HTTP 403."
          else:
              status = f"**\🔴 Not working [HTTP {response.status_code}]**\nThis link may not work, you can try yourself if you want."
  
