@@ -22,6 +22,12 @@ proxy_types = [
            "tiw",
            "ultraviolet",
            "void",
+           "jordans-math-work",
+           "incognito",
+           "noodles",
+           "noodlegpt",
+           "bigfoot",
+           "utopia",
         ]
 p_c = {"artclass":"discord.gg/desmos",
                "nebula":"discord.gg/unblocker",
@@ -56,9 +62,11 @@ class dispView(discord.ui.View):
         min_values = 1, # the minimum number of values that must be selected by the users
         max_values = 1, # the maximum number of values that can be selected by the users
         options = [ # the list of options from which users can choose, a required field
-            discord.SelectOption(
+         
+            discord.SelectOption(    
                 label="Artclass",value="artclass"
             ),
+            
             discord.SelectOption(
                 label="Emerald",value="emerald"
             ),
@@ -89,8 +97,29 @@ class dispView(discord.ui.View):
             discord.SelectOption(
                 label="Void",value="void"
             ),
+            discord.SelectOption(
+                label="Jordans Math Work",value="jordans-math-work"
+            ),
+            discord.SelectOption(
+                label="Incognito",value="incognito"
+            ),
+            discord.SelectOption(
+                label="Noodle Games",value="noodles"
+            ),
+            discord.SelectOption(
+                label="Noodle GPT",value="noodlegpt"
+            ),
         ]
+        
     )
+
+           #  "jordans-math-work",
+         #  "incognito",
+          # "noodles",
+          # "noodlegpt",
+          # "bigfoot",
+          # "utopia",
+
     async def select_callback(self, select, interaction): # the function called when the user is done selecting options
         cooldown = Proxys.cooldown.get_cooldown(interaction.user.id)
         if cooldown > 0:
