@@ -26,10 +26,17 @@ class Events(commands.Cog):
         if "grammar" in message.content.lower():
             file_path = os.path.join(os.getcwd(), "categories", "assets", "grammarlyad_compressed.mp4")
             file = File(file_path)
-            msg = await message.channel.send(file=file)
+            msg = await message.channel.send(content="writing not easy, but grammarly can help! This sentence is grammatically correct, but wordy and hard-to-read.",file=file)
             await msg.add_reaction("🇴")
             await msg.add_reaction("🇳")
             await msg.add_reaction("🇬")
+        if "ievade" in message.content.lower():
+            msg = await message.channel.send(content="IEvade best server fr fr most :regional_indicator_w: bypassing server")
+            await msg.add_reaction("🇼")
+        if "pride month" in message.content.lower():
+            file_path = os.path.join(os.getcwd(), "categories", "assets", "pride-month.mp4")
+            file = File(file_path)
+            msg = await message.channel.send(content="fuck pride month",file=file)
 
 def setup(bot):
     bot.add_cog(Events(bot))

@@ -7,8 +7,11 @@ import numpy as np
 import math
 from .libraries.cooldown import Cooldown
 import requests
+import textwrap
+from PIL import Image, ImageDraw, ImageFont
 import random
-
+import io
+import os
 class Fun(commands.Cog):
     def __init__(self, client):
         self.client = client
