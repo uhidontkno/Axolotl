@@ -28,10 +28,10 @@ class Fun(commands.Cog):
         if crunch is None:
             crunch = 1
         if crunch > 50:
-            ctx.respond("⚠ | Crunchiness amount must be lower or equal to 50. Setting it to 50.")
+            await ctx.respond("⚠ | Crunchiness amount must be lower or equal to 50. Setting it to 50.")
             crunch = 50
         if crunch < -10:
-            ctx.respond("⚠ | Crunchiness amount must be higher or equal to -10. Setting it to -10.")
+            await ctx.respond("⚠ | Crunchiness amount must be higher or equal to -10. Setting it to -10.")
             crunch = -10
         pfp = user.avatar.with_size(512)
 
@@ -42,8 +42,8 @@ class Fun(commands.Cog):
         
         # apply filters to the image
         width, height = image.size
-        new_width = math.floor(width * 2)
-        new_size = (new_width, height)
+        new_width = math.floor(222)
+        new_size = (new_width, math.floor(222/2))
         image = image.resize(new_size)
         enhancer = ImageEnhance.Color(image)
         image = enhancer.enhance(math.floor(6.0 + (crunch*2)))
@@ -55,7 +55,7 @@ class Fun(commands.Cog):
         red = red.convert("RGB")
         blended = Image.blend(image, red, 0.32)
         image = blended
-
+        image = image.resize((512 * 2, 512),Image.Resampling.NEAREST)
         # save the image to bytes
         with BytesIO() as image_binary:
             image.save(image_binary, 'JPEG', quality=math.floor(16 - (crunch/2)))

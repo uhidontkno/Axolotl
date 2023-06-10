@@ -9,10 +9,10 @@ class Status(commands.Cog):
             (discord.ActivityType.playing, "with my pet axolotl"),
             (discord.ActivityType.watching, "my axolotl swim"),
             (discord.ActivityType.playing, "Minecraft"),
-            (discord.ActivityType.listening, "to Minecraft music"),
+            (discord.ActivityType.listening, "Minecraft music"),
             (discord.ActivityType.playing, "with other axolotls"),
             (discord.ActivityType.watching, "axolotls swim around my tank!"),
-            (discord.ActivityType.listening, "to Subnautica music"),
+            (discord.ActivityType.listening, "Subnautica music"),
             (discord.ActivityType.playing, "the new Minecraft 1.20 update."),
         ]
         self.status_types = [

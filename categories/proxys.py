@@ -125,13 +125,6 @@ class dispView(discord.ui.View):
         
     )
 
-           #  "jordans-math-work",
-         #  "incognito",
-          # "noodles",
-          # "noodlegpt",
-          # "bigfoot",
-          # "utopia",
-
     async def select_callback(self, select, interaction): # the function called when the user is done selecting options
         cooldown = Proxys.cooldown.get_cooldown(interaction.user.id)
         if cooldown > 0:

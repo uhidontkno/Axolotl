@@ -75,5 +75,47 @@ class Utility(commands.Cog):
             embed.set_thumbnail(url=guild.icon.url)
 
         await ctx.respond(embed=embed)
+    @commands.slash_command(
+        name="every",
+        description="List every server the bot is currently in.",
+        options=[]
+    )
+    async def servers(self, ctx):
+        # Get a list of all the guild names
+        guild_names = [guild.name for guild in self.client.guilds]
+
+        # Join the guild names with a newline character
+        servers = "\n".join(guild_names)
+
+        # Get the length of the guilds list
+        samt = len(self.client.guilds)
+
+        # Send the response
+        response = f"```\n{servers}\n```"
+        await ctx.respond(embed=discord.Embed(color=discord.Color.og_blurple(),title=f"Every server I'm inside of ({samt}):",description=f"{response}"), ephemeral = True)
+    @commands.slash_command(name="sinv", description="Get the invite link for a server by name.", options=[
+    discord.Option(name="sn", description=None, type=3)
+])
+    async def server_invite(self, ctx: commands.Context, sn: str):
+        # Check if the user is the bot owner
+        if ctx.author.id != 925430447050207294:
+            await ctx.respond("You must be the bot owner to use this command.", ephemeral=True)
+            return
+
+        # Find the first guild with the given name
+        for guild in self.client.guilds:
+            if guild.name.lower() == sn.lower():
+                invite_link = await self.create_invite(guild)
+                await ctx.respond(invite_link, ephemeral=True)
+                return
+
+        await ctx.respond(f"Server not found: {sn}", ephemeral=True)
+
+    async def create_invite(self, guild: discord.Guild) -> str:
+        # Get a channel in the server that the bot can create an invite for
+        for channel in guild.text_channels:
+            if channel.permissions_for(guild.me).create_instant_invite:
+                invite = await channel.create_invite(max_age=0, max_uses=1)
+                return invite.url
 def setup(client):
     client.add_cog(Utility(client))
