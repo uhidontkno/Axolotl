@@ -1,5 +1,5 @@
 # Axolotl
- A multi-purpose bot including moderation, fun, utility, proxies, etc. Python 3.11+ for best compatibility, 3.8+
+ A multi-purpose bot including moderation, fun, utility, proxies, etc. use Python 3.11+ for best compatibility, else 3.8+
 
 # Installation
 Run `pip install pillow numpy py-cord discord.py asyncio requests`, if I miss any, just install them if there is a ModuleNotFound error.
