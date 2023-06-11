@@ -51,6 +51,7 @@ p_c = {"artclass":"discord.gg/desmos",
                }
 
 class MyView(discord.ui.View): # Create a class called MyView that subclasses discord.ui.View
+    timeout=999.9
     @discord.ui.button(label="Save to DMs", style=discord.ButtonStyle.gray) 
     async def button_callback(self, button, interaction):
         description = interaction.message.embeds[0].description
