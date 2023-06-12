@@ -45,6 +45,15 @@ class Other(commands.Cog):
         await ctx.send(content=content)
         await ctx.respond(content="Done.",ephemeral=True)
     @commands.slash_command(
+        name="nick",
+        description="Change the nickname of the bot in the current server (bot owner only)"
+    )
+    async def nick(self, ctx: commands.Context, nick: str = None):
+        if (str(ctx.author.id) != "925430447050207294"):
+            await ctx.respond(content="You must be the bot owner to use this command.",ephemeral=True);return
+        await ctx.guild.me.edit(nick=nick)
+        await ctx.respond(content="Done.",ephemeral=True)
+    @commands.slash_command(
         name="help",
         description="Get help with Axolotl",
     )

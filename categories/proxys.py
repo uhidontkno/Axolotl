@@ -28,7 +28,7 @@ proxy_types = [
            "noodlegpt",
            "bigfoot",
            "utopia",
-           "kazwire"
+           "kazwire", "airflow"
         ]
 p_c = {"artclass":"discord.gg/desmos",
                "nebula":"discord.gg/unblocker",
@@ -47,7 +47,7 @@ p_c = {"artclass":"discord.gg/desmos",
                "bigfoot":"discord.com/invite/JYQ4n8DBKM",
                "jordans-math-work":"N/A",
                "utopia":"discord.gg/hFZC5cgsmq",
-               "kazwire":"discord.gg/kazchat-785577600219086881"
+               "kazwire":"discord.gg/kazchat-785577600219086881", "airflow": "dsc.gg/ievade"
                }
 
 class MyView(discord.ui.View): # Create a class called MyView that subclasses discord.ui.View

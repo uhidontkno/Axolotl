@@ -178,26 +178,16 @@ class Fun(commands.Cog):
         await ctx.respond(embed=discord.Embed(title="Racist Rate fr",color=discord.Color.dark_blue(),description=f"you are {random.choice(precents)}% racist 💀"), ephemeral=False)
     @commands.slash_command(name="annoyrate", description="how annoying are you?")
     async def annoyrate(self, ctx):
-        cooldown = self.cooldown.get_cooldown(ctx.author.id)
-        if cooldown > 0:
-            c_minutes = math.floor(cooldown // 60)
-            c_seconds = math.floor(cooldown % 60)
-            await ctx.respond(f"❌ | You're on a cooldown. Try again in {c_minutes} minutes and {c_seconds} seconds.", ephemeral=True) # respond with error message
-            return
+        
         precents = [-420,-69,-35,-14,-2,-1,0,1,8,16,32,64,99,100,169,251,269,420,9999]
         await ctx.respond(embed=discord.Embed(title="Annoy Rate fr",color=discord.Color.dark_blue(),description=f"you are {random.choice(precents)}% annoying 💀"), ephemeral=False)
-    @commands.slash_command(name="girlsrate", description="how many bitches do you have?")
-    async def annoyrate(self, ctx):
-        cooldown = self.cooldown.get_cooldown(ctx.author.id)
-        if cooldown > 0:
-            c_minutes = math.floor(cooldown // 60)
-            c_seconds = math.floor(cooldown % 60)
-            await ctx.respond(f"❌ | You're on a cooldown. Try again in {c_minutes} minutes and {c_seconds} seconds.", ephemeral=True) # respond with error message
-            return
-        precents = ["can't use tinder 💀","can't use tinder 💀","can't use tinder 💀","can't use tinder 💀",-1000,-877,-767,-444,-6767,-999,-696,-444,-333,-69,0,0,0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,4,8,7,6,19,44,358,462,694,42069,69420]
+    @commands.slash_command(name="girls-rate", description="how many bitches do you have?")
+    async def girlsrate(self, ctx):
+       
+        precents = ["can't use tinder 💀","can't use tinder 💀","can't use tinder 💀",-1000,-877,-767,-444,-6767,-999,-696,-444,-333,-69,0,0,0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,4,8,7,6,19,44,358,462,694,42069,69420]
         await ctx.respond(embed=discord.Embed(title="Bitches Rate fr",color=discord.Color.dark_blue(),description=f"you have {random.choice(precents)} bitches"), ephemeral=False)
     @commands.slash_command(name="ben", description="Talking Ben")
-    async def annoyrate(self, ctx, question: str):
+    async def ben(self, ctx, question: str):
         responses = ["Ho Ho Ho!","No.","Yes!","Ugh."]
         file = None
         response = random.choice(responses)

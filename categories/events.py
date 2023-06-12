@@ -37,6 +37,8 @@ class Events(commands.Cog):
             file_path = os.path.join(os.getcwd(), "categories", "assets", "pride-month.mp4")
             file = File(file_path)
             msg = await message.channel.send(content="fuck pride month",file=file)
+        if "never pirate" in message.content.lower():
+            msg = await message.channel.send(content="my son will never pirate south park\nhttps://files.basketcraft.net/christmaspoo-lg.mp4")
 
 def setup(bot):
     bot.add_cog(Events(bot))
