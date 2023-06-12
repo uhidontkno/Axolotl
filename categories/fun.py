@@ -12,6 +12,12 @@ from PIL import Image, ImageDraw, ImageFont
 import random
 import io
 import os
+import base64
+import aiohttp
+import json
+import time
+from discord import File
+import asyncio
 class Fun(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -158,7 +164,7 @@ class Fun(commands.Cog):
             c_seconds = math.floor(cooldown % 60)
             await ctx.respond(f"❌ | You're on a cooldown. Try again in {c_minutes} minutes and {c_seconds} seconds.", ephemeral=True) # respond with error message
             return
-        precents = [-1,0,1,2,5,10,12,17,24,37,50,69,99,100,420,666,999,42069,69420]
+        precents = [-10,-3,-2,-1,0,0,1,2,5,10,12,17,24,37,50,69,99,100,420,666,999,42069,69420]
         await ctx.respond(embed=discord.Embed(title="Rizz Rate fr",color=discord.Color.dark_blue(),description=f"you have {random.choice(precents)}% rizz 😈😮‍💨"), ephemeral=False)
     @commands.slash_command(name="racistrate", description="how racist are you? 💀")
     async def racistrate(self, ctx):
@@ -188,7 +194,104 @@ class Fun(commands.Cog):
             c_seconds = math.floor(cooldown % 60)
             await ctx.respond(f"❌ | You're on a cooldown. Try again in {c_minutes} minutes and {c_seconds} seconds.", ephemeral=True) # respond with error message
             return
-        precents = ["can't use tinder 💀","can't use tinder 💀",-999,-696,-444,-333,-69,0,0,0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,4,8,7,6,19,44,358,462,694,42069,69420]
+        precents = ["can't use tinder 💀","can't use tinder 💀","can't use tinder 💀","can't use tinder 💀",-1000,-877,-767,-444,-6767,-999,-696,-444,-333,-69,0,0,0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,4,8,7,6,19,44,358,462,694,42069,69420]
         await ctx.respond(embed=discord.Embed(title="Bitches Rate fr",color=discord.Color.dark_blue(),description=f"you have {random.choice(precents)} bitches"), ephemeral=False)
+    @commands.slash_command(name="ben", description="Talking Ben")
+    async def annoyrate(self, ctx, question: str):
+        responses = ["Ho Ho Ho!","No.","Yes!","Ugh."]
+        file = None
+        response = random.choice(responses)
+        if "love god" in question.lower():
+            response = "Ho Ho Ho... No."
+        fp = os.path.join(os.getcwd(), "categories", "assets", "backrooms.mp4")
+        backrooms = File(fp)
+        fp = os.path.join(os.getcwd(), "categories", "assets", "lean.mp4")
+        lean = File(fp)
+        if "make lean" in question.lower() :
+            file = lean
+            response = "..."
+        
+        elif "backrooms" in question.lower():
+            file = backrooms
+            response = "..."
+        await ctx.respond(content="Starting conversation...",ephemeral=True)
+        cem = discord.Embed(color=discord.Color.greyple(), description=f"### Started by {ctx.author.mention}")
+        benmsg = await ctx.send(content='''
+> **Call started with Talking Ben** 
+        ''',embed=cem)
+        await asyncio.sleep(2)
+        await benmsg.edit(content='''
+> **Call started with Talking Ben** 
+> Talking Ben: Ben?
+        ''',embed=cem)
+        await  asyncio.sleep(2)
+        await benmsg.edit(content=f'''
+> **Call started with Talking Ben** 
+> Talking Ben: Ben?
+> You: {question}
+        ''',embed=cem)
+        await asyncio.sleep(2)
+        await benmsg.edit(content=f'''
+> **Call started with Talking Ben** 
+> Talking Ben: Ben?
+> You: {question}
+> Talking Ben: {response}
+> Talking Ben: \*hangs up\*
+        ''',embed=cem)
+        if file:
+         await ctx.respond(file=file)
+    @commands.slash_command(name="ask-gpt", description="Ask a question to GPT-3.")
+    async def chatgpt(self, ctx, question: str):
+         # First, encode the user's question as base64
+        question = f'''{question}\n----------
+Discord User Info:
+Member: {ctx.author}
+User ID: {ctx.author.id}
+Proper Mention: <@{ctx.author.id}>
+Unix Epoch: {time.time()}
+----------
+Current Server Info:
+Name: {ctx.guild.name}
+ID: {ctx.guild.id}'''
+        encoded_question = base64.b64encode(question.encode("utf-8")).decode("utf-8")
+        locations = ["https://bot.noodles.gq","https://c0.noodles.gq","https://c1.noodles.gq","https://c2.noodles.gq","https://c3.noodles.gq","https://delightful-slug-skirt.cyclic.app"]
+        # Define the API URL
+        API_URL = f"{random.choice(locations)}/bot/ask"
+
+        # Construct the payload data for the API request
+        payload = {
+            "question": f'''{encoded_question}''',
+            "messages": "{}",
+            "persona": "You are a helpful GPT-3 based chatbot, you currently live in a discord bot called 'Axolotl'. Axolotl is a custom discord bot written in Python, by rare#3337. Keep in mind that your memory only lasts for one message due to Discord limitations. You have basic access to the current user and guild that you were invoked in, and the info is at the bottom of every message. To mention a user, find the Proper Mention area and use that to mention the user, as that properly pings them on Discord. The current time and date is provided to you in the Unix Epoch. The server that you were invoked in is in the Current Server Info section at the bottom of the message. This section gives the server name and ID."
+        }
+        
+        # Define the headers for the API request
+        headers = {
+            "Content-Type": "application/json"
+        }
+
+        # Defer the slash command while we make the API request
+        await ctx.defer()
+
+        # Make the API request using aiohttp
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.post(API_URL, data=json.dumps(payload), headers=headers, timeout=15) as response:
+                    if response.status == 200:
+                        # Get the response data as plain text
+                        response_text = await response.text()
+                        if '"error":true' in response_text.lower():
+                            errjson = json.loads(response_text)
+                            await ctx.respond(embed=discord.Embed(color=discord.Color.red(),title="Error",description=f"GPT request error:\nMessage: {errjson['message']}\nRaw text: `{response_text}`\nServer URL: {API_URL}"))
+                            return
+                        # Send the response message to the channel
+                        await ctx.respond(f"GPT: {response_text}\n\n :information_source: | ||GPT only has a memory lasting for one response due to limitations. To have a proper conversation with GPT, please head over to https://bot.noodles.gq/ or go to the official ChatGPT site: https://chat.openai.com || ")
+                    else:
+                        # Send an error message if the API request failed
+                        await ctx.respond(embed=discord.Embed(color=discord.Color.red(),title="Error",description=f"GPT request error:\nMessage: {response.reason}\nServer URL: {API_URL}"))
+                        
+        except asyncio.TimeoutError:
+            # Send a timeout error message if the API request takes too long
+            await ctx.respond(embed=discord.Embed(color=discord.Color.red(),title="Error",description=f"GPT request error:\nMessage: Timed out, url {API_URL} may be down."))
 def setup(client):
     client.add_cog(Fun(client))

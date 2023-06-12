@@ -31,3 +31,5 @@
 * `/rizzrate` - how much rizz do you have? :face_exhaling: 
 * `/racistrate` - how racist are you? :baby_tone5:
 * `/girlsrate` - how many bitches do you have? :flushed:
+* `/ask-gpt` - Ask ChatGPT anything.
+* `/ben` - Talk to Talking Ben

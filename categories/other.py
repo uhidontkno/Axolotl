@@ -21,6 +21,30 @@ class Other(commands.Cog):
         )
         await ctx.respond(embed=embed, ephemeral=True)
     @commands.slash_command(
+        name="say-embed",
+        description="Say a message, with a embed. (bot owner only)"
+    )
+    async def semsg(self, ctx: commands.Context, title: str = " ", color: str = None, description: str = " ",content: str = ""):
+        if (str(ctx.author.id) != "925430447050207294"):
+            await ctx.respond(content="You must be the bot owner to use this command.",ephemeral=True);return
+        embed = discord.Embed(
+            title=title,
+            description=description,
+            color=int(color, 16)
+        )
+        
+        await ctx.send(content=content,embed=embed)
+        await ctx.respond(content="Done.",ephemeral=True)
+    @commands.slash_command(
+        name="say",
+        description="Say a message (bot owner only)"
+    )
+    async def smsg(self, ctx: commands.Context, content: str):
+        if (str(ctx.author.id) != "925430447050207294"):
+            await ctx.respond(content="You must be the bot owner to use this command.",ephemeral=True);return
+        await ctx.send(content=content)
+        await ctx.respond(content="Done.",ephemeral=True)
+    @commands.slash_command(
         name="help",
         description="Get help with Axolotl",
     )
