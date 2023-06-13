@@ -186,6 +186,24 @@ class Fun(commands.Cog):
        
         precents = ["can't use tinder 💀","can't use tinder 💀","can't use tinder 💀",-1000,-877,-767,-444,-6767,-999,-696,-444,-333,-69,0,0,0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,4,8,7,6,19,44,358,462,694,42069,69420]
         await ctx.respond(embed=discord.Embed(title="Bitches Rate fr",color=discord.Color.dark_blue(),description=f"you have {random.choice(precents)} bitches"), ephemeral=False)
+    @commands.slash_command(name="menrate", description="ayo what the")
+    async def menrate(self, ctx):
+        await ctx.respond(embed=discord.Embed(title="Men Rate fr",color=discord.Color.dark_blue(),description=f"ay yo what the fuc-"), ephemeral=False)
+    @commands.slash_command(name="howmuchbrokeass", description="how much broke ass are you?")
+    async def brokerate(self, ctx):
+        start = -0.5
+        end = 1.5
+        step = 0.05
+
+        values = []
+        current = start
+        while current < end:
+         values.append(current)
+         current += step
+
+        brokepercent = random.choice(values)
+        
+        await ctx.respond(embed=discord.Embed(title="How much are you a broke ass?",color=discord.Color.dark_blue(),description=f"you are **{'{:.2f}'.format(brokepercent * -200)}%** broke\nyou have **${'{:.2f}'.format(69420 * brokepercent)}** in your bank account fr"), ephemeral=False)
     @commands.slash_command(name="ben", description="Talking Ben")
     async def ben(self, ctx, question: str):
         responses = ["Ho Ho Ho!","No.","Yes!","Ugh."]
@@ -232,6 +250,9 @@ class Fun(commands.Cog):
          await ctx.respond(file=file)
     @commands.slash_command(name="ask-gpt", description="Ask a question to GPT-3.")
     async def chatgpt(self, ctx, question: str):
+        if (len(question) > 1250): 
+            await ctx.respond(embed=discord.Embed(color=discord.Color.red(),title="Error",description=f"GPT request error:\nMessage: Prompt too long, shorten it to be under 1250 bytes."))
+            return;
          # First, encode the user's question as base64
         question = f'''{question}\n----------
 Discord User Info:

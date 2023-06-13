@@ -30,6 +30,8 @@
 * `/gayrate` - how gay are you?  :rainbow_flag: 
 * `/rizzrate` - how much rizz do you have? :face_exhaling: 
 * `/racistrate` - how racist are you? :baby_tone5:
-* `/girlsrate` - how many bitches do you have? :flushed:
+* `/girls-rate` - how many bitches do you have? :flushed:
 * `/ask-gpt` - Ask ChatGPT anything.
 * `/ben` - Talk to Talking Ben
+* `/menrate` wait what the fuc-
+* `/howmuchbrokeass` how broke are you?
