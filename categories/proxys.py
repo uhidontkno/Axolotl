@@ -61,7 +61,7 @@ class MyView(discord.ui.View): # Create a class called MyView that subclasses di
         else:
          url = "Failed to fetch."
         try:
-          await interaction.user.send(embed=discord.Embed(title="Here's your proxy!", description=f"### {url} \n\n :warning: | Luminary is trying to copy my bot! Take a read: <https://rentry.org/luminaryripoff>", color=discord.Color.blue()))
+          await interaction.user.send(embed=discord.Embed(title="Here's your proxy!", description=f"### {url} \n\n", color=discord.Color.blue()))
           await interaction.response.send_message(content="Check your DMs!",ephemeral=True)
         except:
           await interaction.response.send_message(content="Failed to DM. Please check to see if you have DMs enabled.",ephemeral=True)
@@ -165,7 +165,7 @@ class dispView(discord.ui.View):
             dpm = await interaction.response.send_message(
                 embed=discord.Embed(
                      title="\🌐 | Here's your proxy",
-                     description=f"### **{proxy}** \n{warning}\nJoin {select.values[0]}'s official discord server for support: https://{p_c[select.values[0]]}\n\n:warning: | Luminary is trying to copy my bot! Take a read: <https://rentry.org/luminaryripoff>",
+                     description=f"### **{proxy}** \n{warning}\nJoin {select.values[0]}'s official discord server for support: https://{p_c[select.values[0]]}\n\n",
                      color=discord.Color.green(),
                  ).set_footer(text="Come back in 15 minutes to get another one!"),
                  view=MyView(),
