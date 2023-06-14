@@ -1,3 +1,5 @@
+:warning: | Luminary is trying to copy my bot! Take a read: <https://rentry.org/luminaryripoff>
+
 <> Required
 [] Optional
 ## Commands

@@ -77,7 +77,7 @@ class Utility(commands.Cog):
         await ctx.respond(embed=embed)
     @commands.slash_command(
         name="every",
-        description="List every server the bot is currently in.",
+        description="List every server the bot is currently in. ( bot owner only )",
         options=[]
     )
     async def servers(self, ctx):
@@ -89,7 +89,8 @@ class Utility(commands.Cog):
 
         # Get the length of the guilds list
         samt = len(self.client.guilds)
-
+        if ctx.author.id != 925430447050207294:
+            await ctx.respond(content="Bot owner only.",ephemeral=True); return;
         # Send the response
         response = f"```\n{servers}\n```"
         await ctx.respond(embed=discord.Embed(color=discord.Color.og_blurple(),title=f"Every server I'm inside of ({samt}):",description=f"{response}"), ephemeral = True)

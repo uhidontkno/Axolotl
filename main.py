@@ -5,7 +5,7 @@ import threading
 import signal
 import sys
 import asyncio
-client = commands.Bot(command_prefix="", intents=discord.Intents.all())
+client = commands.Bot(intents=discord.Intents.all())
 token = ""
 
 with open("token.env") as f:

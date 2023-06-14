@@ -18,6 +18,22 @@ import json
 import time
 from discord import File
 import asyncio
+
+scenes = ["https://www.youtube.com/watch?v=dVOyEEJ4z0I",
+          "https://www.youtube.com/watch?v=9O9u9LtVM0o&t=39s",
+          "https://www.youtube.com/watch?v=Car_RJJSP1Y",
+          "https://www.youtube.com/watch?v=ArGZGAT8rJY",
+          "https://www.youtube.com/watch?v=OnJJGtCgok8",
+          "https://www.youtube.com/watch?v=EUSFdMonvqs",
+          "https://www.youtube.com/watch?v=QVmlWOVa2Cg"]
+scenename = ["I love GD Colon!",
+             "INTEL CORE I7-5960X HASWELL-E 8-CORE",
+             "Doxxing Squidward",
+             "Committing Tax Fraud",
+             "Loudward's Confession",
+             "THE UNIVERSE IS DYING SPONGEBOB!",
+             "PLANKTON JACKS OFF TO THE SECRET FORMULA"]
+
 class Fun(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -188,9 +204,55 @@ class Fun(commands.Cog):
         await ctx.respond(embed=discord.Embed(title="Bitches Rate fr",color=discord.Color.dark_blue(),description=f"you have {random.choice(precents)} bitches"), ephemeral=False)
     @commands.slash_command(name="menrate", description="ayo what the")
     async def menrate(self, ctx):
-        await ctx.respond(embed=discord.Embed(title="Men Rate fr",color=discord.Color.dark_blue(),description=f"ay yo what the fuc-"), ephemeral=False)
+        await ctx.respond(embed=discord.Embed(title="Men Rate fr",color=discord.Color.dark_blue(),description=f"ay yo what the fuc- no. i'm not doing this"), ephemeral=False)
+    @commands.slash_command(
+    name="ai-sponge",
+    description="i'm dead",
+    options=[
+        discord.Option(
+            name="scene",
+            description="Select a scene",
+            type=3,
+            required=True,
+            choices=[
+                discord.OptionChoice(value=str(index), name=scenename[index])
+                for index, _ in enumerate(scenes)
+            ],
+        )
+    ],
+)
+    async def aisponge(self, ctx, scene: str):
+        scene = int(scene)
+        await ctx.respond(content=f"## AI Sponge \n > **Clip Name**: {scenename[scene]}\n > Video: {scenes[scene]}", ephemeral=False)
+    @commands.slash_command(name="howmanycrimes", description="Are the police after you?")
+    async def crimery(self, ctx, guilty: bool = True): 
+       
+        emcolor = None
+        emtitle = None
+        emdescription = None
+        crimes = [random.randrange(0,200),random.randrange(0,4),random.randrange(0,17),random.randrange(0,473)]
+        if (crimes[0] == 0 and crimes[1] == 0 and crimes[2] == 0 and crimes[3] == 0):
+            emcolor = discord.Color.green()
+            emtitle = "Woah! Nobody is after you!"
+            emfooter = "Congratulations!"
+        else:
+            emcolor = discord.Color.red()
+            emtitle = "Uh Oh."
+            emfooter = "Don't worry, there is a **1/694.20 (0.00144%)** chance of being a good boy!"
+        emdescription = f'''
+Are you a criminal 🤔? Let's find this out!
+**You committed**
+* Arson {crimes[0]} times
+* 🔪 {crimes[1]} times
+* Car theft {crimes[2]} times
+* Tax Evasion {crimes[3]} times
+
+{emfooter} In total you committed {crimes[0] + crimes[1] + crimes[2] + crimes[3]} crimes.
+        '''
+        await ctx.respond(embed=discord.Embed(color=emcolor, title=emtitle, description=emdescription))
     @commands.slash_command(name="howmuchbrokeass", description="how much broke ass are you?")
-    async def brokerate(self, ctx):
+    async def brokerate(self, ctx, user: discord.User = None):
+        if not user: user = ctx.author 
         start = -0.5
         end = 1.5
         step = 0.05
@@ -202,8 +264,17 @@ class Fun(commands.Cog):
          current += step
 
         brokepercent = random.choice(values)
-        
-        await ctx.respond(embed=discord.Embed(title="How much are you a broke ass?",color=discord.Color.dark_blue(),description=f"you are **{'{:.2f}'.format(brokepercent * -200)}%** broke\nyou have **${'{:.2f}'.format(69420 * brokepercent)}** in your bank account fr"), ephemeral=False)
+        if user != ctx.author:
+            directed = f"is {user} a"
+            display = f"{user.mention} is"
+            md = f"{user.mention} has"
+            usrm = f"their"
+        else:
+            directed = f"are you a"
+            display = f"you are"
+            md = f"you have"
+            usrm = "your"
+        await ctx.respond(embed=discord.Embed(title=f"How much {directed} broke ass?",color=discord.Color.dark_blue(),description=f"{display} **{'{:.2f}'.format(brokepercent * -363)}%** broke\n{md} **${'{:.2f}'.format(69420 * brokepercent)}** in {usrm} bank account fr"), ephemeral=False)
     @commands.slash_command(name="ben", description="Talking Ben")
     async def ben(self, ctx, question: str):
         responses = ["Ho Ho Ho!","No.","Yes!","Ugh."]

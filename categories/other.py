@@ -21,6 +21,17 @@ class Other(commands.Cog):
         )
         await ctx.respond(embed=embed, ephemeral=True)
     @commands.slash_command(
+        name="status",
+        description="View Axolotl's Status",
+    )
+    async def invite(self, ctx: commands.Context):
+        embed = discord.Embed(
+            title="Axolotl Status",
+            description="View Axolotl's status and other IEvade services here: https://stats.uptimerobot.com/PqE16FvrB5",
+            color=0x5865f2
+        )
+        await ctx.respond(embed=embed, ephemeral=True)
+    @commands.slash_command(
         name="say-embed",
         description="Say a message, with a embed. (bot owner only)"
     )
