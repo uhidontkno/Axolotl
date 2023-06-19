@@ -196,7 +196,7 @@ class Moderation(commands.Cog):
     )
     async def mute(self, ctx: commands.Context, user: str, length: str, reason: str = "No reason specified."):
         # Check if the user has the necessary permissions
-        if not ctx.author.guild_permissions.timeout_members:
+        if not ctx.author.guild_permissions.moderate_members:
             await ctx.respond(f"❌ | You do not have permission to use the `/mute` command.", ephemeral=True)
             return
     

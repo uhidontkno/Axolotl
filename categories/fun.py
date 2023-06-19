@@ -25,14 +25,24 @@ scenes = ["https://www.youtube.com/watch?v=dVOyEEJ4z0I",
           "https://www.youtube.com/watch?v=ArGZGAT8rJY",
           "https://www.youtube.com/watch?v=OnJJGtCgok8",
           "https://www.youtube.com/watch?v=EUSFdMonvqs",
-          "https://www.youtube.com/watch?v=QVmlWOVa2Cg"]
+          "https://www.youtube.com/watch?v=QVmlWOVa2Cg",
+          "https://www.youtube.com/watch?v=7R_1UJkZk2c","https://www.youtube.com/watch?v=_aCGItFCakA"
+          ,"https://www.youtube.com/watch?v=GmB1KcH6-iw","https://www.youtube.com/watch?v=boIy4_P6uDI",
+          "https://www.youtube.com/watch?v=ji8wr0DjnTA","https://www.youtube.com/watch?v=N9-qEP5nZYA","https://i-just.sold-your.creditcard/sw9i3i28.mp4",
+          "https://i-just.sold-your.creditcard/hovq39gz.mp4","https://i-just.sold-your.creditcard/k0o26xit.mp4","https://i-just.sold-your.creditcard/fpipg9gt.mp4",
+          "https://i-just.sold-your.creditcard/jjowbw0g.mp4","https://i-just.sold-your.creditcard/y9mnhbzx.mp4"]
 scenename = ["I love GD Colon!",
              "INTEL CORE I7-5960X HASWELL-E 8-CORE",
              "Doxxing Squidward",
              "Committing Tax Fraud",
              "Loudward's Confession",
              "THE UNIVERSE IS DYING SPONGEBOB!",
-             "PLANKTON JACKS OFF TO THE SECRET FORMULA"]
+             "PLANKTON JACKS OFF TO THE SECRET FORMULA",
+             "PNEUMONOULTRAMICROSCOPICSILICOVOLCANOCONIOSIS",
+             "a",
+             "I'M GOING TO LOSE IT I'M GOING TO LOSE IT","THIS MESSAGE SHOULD NOT APPEAR","LOUDWARDS WORST STROKE",
+             "Loudward Mad","Patrick Smokes Weed","Loudward Pees","Spongebob Exits the simulation","August 12th 2036",
+             "Mr Krabs is a Legend!","Spongbob Tries Sax"]
 
 class Fun(commands.Cog):
     def __init__(self, client):
@@ -358,7 +368,7 @@ ID: {ctx.guild.id}'''
         # Make the API request using aiohttp
         try:
             async with aiohttp.ClientSession() as session:
-                async with session.post(API_URL, data=json.dumps(payload), headers=headers, timeout=15) as response:
+                async with session.post(API_URL, data=json.dumps(payload), headers=headers, timeout=35) as response:
                     if response.status == 200:
                         # Get the response data as plain text
                         response_text = await response.text()

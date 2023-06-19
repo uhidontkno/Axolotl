@@ -51,7 +51,7 @@ p_c = {"artclass":"discord.gg/desmos",
                }
 
 class MyView(discord.ui.View): # Create a class called MyView that subclasses discord.ui.View
-    timeout=999.9
+    timeout=32767.1
     @discord.ui.button(label="Save to DMs", style=discord.ButtonStyle.gray) 
     async def button_callback(self, button, interaction):
         description = interaction.message.embeds[0].description
@@ -67,6 +67,7 @@ class MyView(discord.ui.View): # Create a class called MyView that subclasses di
           await interaction.response.send_message(content="Failed to DM. Please check to see if you have DMs enabled.",ephemeral=True)
 
 class dispView(discord.ui.View):
+    timeout=69420666.1
     @discord.ui.select( # the decorator that lets you specify the properties of the select menu
         placeholder = "Choose a proxy to dispense.", # the placeholder text that will be displayed if nothing is selected
         min_values = 1, # the minimum number of values that must be selected by the users

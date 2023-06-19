@@ -1,7 +1,8 @@
+from io import BytesIO
 from discord.ext import commands
 import discord
 import os
-
+import requests
 class Other(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -9,7 +10,7 @@ class Other(commands.Cog):
     @commands.slash_command(name="ping", description="Ping the bot")
     async def ping(self, ctx):
         await ctx.response.send_message(content="Pong!", ephemeral=False)
-    @commands.slash_command(
+    @commands.command(
         name="invite",
         description="Get the invite link for Axolotl",
     )
@@ -55,6 +56,30 @@ class Other(commands.Cog):
             await ctx.respond(content="You must be the bot owner to use this command.",ephemeral=True);return
         await ctx.send(content=content)
         await ctx.respond(content="Done.",ephemeral=True)
+    @commands.slash_command(
+        name="sayfile",
+        description="Send a file. (bot owner only)"
+    )
+    async def sfile(self, ctx: commands.Context, fileurl: str):
+        if str(ctx.author.id) != "925430447050207294":
+         await ctx.respond(content="You must be the bot owner to use this command.", ephemeral=True)
+         return
+
+        attachment_url = fileurl
+        file_request = requests.get(attachment_url)
+        file_bytes = BytesIO(file_request.content)
+    
+        # Get the file extension from the URL
+        file_extension = os.path.splitext(attachment_url)[1]
+    
+        # Create a discord.File object from the BytesIO object
+        file = discord.File(file_bytes, filename=f"file{file_extension}")
+    
+        # Send the file
+        await ctx.send(file=file)
+    
+        await ctx.respond(content="Done.", ephemeral=True)
+         
     @commands.slash_command(
         name="nick",
         description="Change the nickname of the bot in the current server (bot owner only)"
