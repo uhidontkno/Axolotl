@@ -39,6 +39,14 @@ class Events(commands.Cog):
             msg = await message.channel.send(content="fuck pride month",file=file)
         if "never pirate" in message.content.lower():
             msg = await message.channel.send(content="my son will never pirate south park\nhttps://files.basketcraft.net/christmaspoo-lg.mp4")
+        if "light mode" in message.content.lower():
+            msg = await message.channel.send(content="my eyes hurt already")
+        if "discord light mode" in message.content.lower():
+            msg = await message.channel.send(content="https://www.youtube.com/watch?v=XlgqZeeoOtI")
+        if "discord light theme" in message.content.lower():
+            msg = await message.channel.send(content="https://www.youtube.com/watch?v=XlgqZeeoOtI")
+        if "dark mode" in message.content.lower():
+            msg = await message.channel.send(content="gimme gimme mine mine mine mine mine mine!!!!")
 
 def setup(bot):
     bot.add_cog(Events(bot))

@@ -51,7 +51,7 @@ p_c = {"artclass":"discord.gg/desmos",
                }
 
 class MyView(discord.ui.View): # Create a class called MyView that subclasses discord.ui.View
-    timeout=32767.1
+    timeout=sys.maxsize
     @discord.ui.button(label="Save to DMs", style=discord.ButtonStyle.gray) 
     async def button_callback(self, button, interaction):
         description = interaction.message.embeds[0].description
@@ -67,7 +67,10 @@ class MyView(discord.ui.View): # Create a class called MyView that subclasses di
           await interaction.response.send_message(content="Failed to DM. Please check to see if you have DMs enabled.",ephemeral=True)
 
 class dispView(discord.ui.View):
-    timeout=69420666.1
+    timeout=sys.maxsize
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.timeout = sys.maxsize  # Override parent view timeout
     @discord.ui.select( # the decorator that lets you specify the properties of the select menu
         placeholder = "Choose a proxy to dispense.", # the placeholder text that will be displayed if nothing is selected
         min_values = 1, # the minimum number of values that must be selected by the users
@@ -197,8 +200,8 @@ class dispView(discord.ui.View):
 class Proxys(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.cooldown = Cooldown(900)  # 15 secs due to debug, but 15 * 60 is what you need
-    cooldown = Cooldown(900)
+        self.cooldown = Cooldown(10 * 60) 
+    cooldown = Cooldown(10 * 60)
     @commands.slash_command(name="disp-panel")
     async def pdp(self,ctx: commands.Context):
       if (str(ctx.guild.id) == "1101109470454632518" and ctx.author.guild_permissions.administrator):

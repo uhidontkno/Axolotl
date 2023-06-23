@@ -10,6 +10,7 @@ import requests
 import textwrap
 from PIL import Image, ImageDraw, ImageFont
 import random
+import aiohttp
 import io
 import os
 import base64
@@ -18,7 +19,9 @@ import json
 import time
 from discord import File
 import asyncio
-
+import sys
+import datetime
+from datetime import datetime
 scenes = ["https://www.youtube.com/watch?v=dVOyEEJ4z0I",
           "https://www.youtube.com/watch?v=9O9u9LtVM0o&t=39s",
           "https://www.youtube.com/watch?v=Car_RJJSP1Y",
@@ -210,7 +213,7 @@ class Fun(commands.Cog):
     @commands.slash_command(name="girls-rate", description="how many bitches do you have?")
     async def girlsrate(self, ctx):
        
-        precents = ["can't use tinder 💀","can't use tinder 💀","can't use tinder 💀",-1000,-877,-767,-444,-6767,-999,-696,-444,-333,-69,0,0,0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,4,8,7,6,19,44,358,462,694,42069,69420]
+        precents = ["",sys.maxsize * -1,"fatass","fatass","can't use tinder 💀","can't use tinder 💀","can't use tinder 💀",-1000,-877,-767,-444,-6767,-999,-696,-444,-333,-69,0,0,0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,4,8,7,6,19,44,358,462,694,42069,69420]
         await ctx.respond(embed=discord.Embed(title="Bitches Rate fr",color=discord.Color.dark_blue(),description=f"you have {random.choice(precents)} bitches"), ephemeral=False)
     @commands.slash_command(name="menrate", description="ayo what the")
     async def menrate(self, ctx):
@@ -234,6 +237,49 @@ class Fun(commands.Cog):
     async def aisponge(self, ctx, scene: str):
         scene = int(scene)
         await ctx.respond(content=f"## AI Sponge \n > **Clip Name**: {scenename[scene]}\n > Video: {scenes[scene]}", ephemeral=False)
+
+
+    @commands.slash_command(
+        name="rock-paper-scissors",
+        description="Play a game of rock paper scissors",
+        options=[
+            discord.Option(
+                name="option",
+                type=3,
+                required=True,
+                choices=[
+                    discord.OptionChoice(value="1", name="Rock"),
+                    discord.OptionChoice(value="2", name="Paper"),
+                    discord.OptionChoice(value="3", name="Scissors")
+                ],
+            )
+        ],
+    )
+    async def play_rps(self, ctx: commands.Context, option: str):
+        option = int(option)
+        await ctx.respond(content=f"Starting a game of rock paper scissors.",ephemeral=True)
+        desc = ["Rock...","Rock... Paper...","Rock... Paper... Scissors...","Rock... Paper... Scissors... shoe?"]
+        option_lang = ["Rock :rock:","Paper :scroll:","Scissors :scissors:"]
+        rpsmsg = await ctx.send(embed=discord.Embed(title="Rock Paper Scissors",description="Starting game...",color=discord.Color.green()),content=f"{ctx.author.mention}")
+        user_choice = option
+        for i in range(4):
+         bot_choice = random.randrange(1,3)  # Replace this with a random choice for the bot (1 for Rock, 2 for Paper, 3 for Scissors)
+         await asyncio.sleep(0.5)
+         await rpsmsg.edit(embed=discord.Embed(title="Rock Paper Scissors: Bot is picking...",description=f"{desc[i]} \n{option_lang[(bot_choice + 4 % 3) - 1]}?",color=discord.Color.green()),content=f"{ctx.author.mention}")
+
+        # Determine the winner
+        if user_choice == bot_choice:
+            result = "It's a tie!"
+        elif (user_choice == 1 and bot_choice == 3) or (user_choice == 2 and bot_choice == 1) or (user_choice == 3 and bot_choice == 2):
+            result = "You win!"
+        else:
+            result = "You lose!"
+
+        await asyncio.sleep(2)
+        await rpsmsg.edit(embed=discord.Embed(title="Rock Paper Scissors ",description=f"## {result} \n You chose {option_lang[option - 1]}\nI chose {option_lang[bot_choice - 1]}.\n\nDon't get mad over RNG!",color=discord.Color.og_blurple()),content=f"{ctx.author.mention}")
+
+    
+
     @commands.slash_command(name="howmanycrimes", description="Are the police after you?")
     async def crimery(self, ctx, guilty: bool = True): 
        
@@ -385,5 +431,41 @@ ID: {ctx.guild.id}'''
         except asyncio.TimeoutError:
             # Send a timeout error message if the API request takes too long
             await ctx.respond(embed=discord.Embed(color=discord.Color.red(),title="Error",description=f"GPT request error:\nMessage: Timed out, url {API_URL} may be down."))
+    # GBbZhUoGsWm5uFvLSDJMccaXImK2uRHdsskTZbwb
+    @commands.slash_command(name="apod", description="Get the Astronomy Picture of the Day")
+    async def apod(self, ctx: commands.Context, date: str = ""):
+        try:
+            if date:
+                try:
+                    specific_date = datetime.strptime(date, "%m/%d/%Y").date()
+                    specific_date_str = specific_date.strftime("%Y-%m-%d")
+                except ValueError:
+                    await ctx.respond("Invalid date format. Please use 'MM/DD/YYYY'.", ephemeral=True)
+                    return
+            else:
+                specific_date_str = ""
+    
+            async with aiohttp.ClientSession() as session:
+                url = f"https://api.nasa.gov/planetary/apod?api_key=GBbZhUoGsWm5uFvLSDJMccaXImK2uRHdsskTZbwb&date={specific_date_str}"
+                async with session.get(url) as response:
+                    if response.status == 200:
+                        if response.content_type == "application/json":
+                            data = await response.json()
+                            image_url = data["url"]
+                            explanation = data["explanation"]
+    
+                            embed = discord.Embed(title="Astronomy Picture of the Day", description=explanation, color=discord.Color.blue())
+                            embed.set_image(url=image_url)
+    
+                            await ctx.respond(embed=embed, ephemeral=False)
+                        else:
+                            await ctx.respond("Failed to fetch Astronomy Picture of the Day: Unexpected response format.", ephemeral=True)
+                    else:
+                        await ctx.respond("Failed to fetch Astronomy Picture of the Day.", ephemeral=True)
+        except aiohttp.ContentTypeError as e:
+            await ctx.respond(f"Failed to fetch Astronomy Picture of the Day: Unexpected response format. \nDebug: {str(e)}", ephemeral=True)
+        except Exception as e:
+            await ctx.respond(f"An error occurred: {str(e)}", ephemeral=True)
+
 def setup(client):
     client.add_cog(Fun(client))

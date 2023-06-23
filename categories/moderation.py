@@ -5,6 +5,8 @@ import math
 import random
 import datetime
 import re
+import asyncio
+from discord.ext.commands import MissingPermissions
 strings = ['haha','lmao','very much a sped user',
                '<https://dont-get.trolled.host/s/yv5jxeoita>',
                'cope harder','okay shrek','i dont like you',
@@ -401,5 +403,49 @@ class Moderation(commands.Cog):
                 color=discord.Color.green()
             )
         await ctx.respond(embed=embed, ephemeral=True)
+   
+    @commands.slash_command(name="lock", description="Lock the channel")
+    async def lock(self, ctx: commands.Context, reason: str = "No reason specified."):
+        channel = ctx.channel
+        bot = ctx.guild.me
+    
+        try:
+            # Check if the user and bot have the manage_channels permission
+            if not channel.permissions_for(ctx.author).manage_channels or not channel.permissions_for(bot).manage_channels:
+                await ctx.respond("Both you and the bot must have the 'Manage Channels' permission to use this command.", ephemeral=True)
+                return
+    
+            # Disable sending messages for @everyone
+            await channel.set_permissions(ctx.guild.default_role, send_messages=False, send_messages_in_threads=False)
+    
+            # Send lock message
+            embed = discord.Embed(title="🔒 | Channel Lockdown", description=f"{channel.mention} has been locked. \n **Reason**: \n{reason}", color=discord.Color.red())
+            await ctx.respond(embed=embed, ephemeral=False)
+    
+        except Exception as e:
+            await ctx.respond(f"You / bot may be missing {e.missing_perms} permission(s) to run this command.", ephemeral=True)
+    
+    @commands.slash_command(name="unlock", description="Unlock the channel")
+    async def unlock(self, ctx: commands.Context, reason: str = "No reason specified."):
+        channel = ctx.channel
+        bot = ctx.guild.me
+    
+        try:
+            # Check if the user and bot have the manage_channels permission
+            if not channel.permissions_for(ctx.author).manage_channels or not channel.permissions_for(bot).manage_channels:
+                await ctx.respond("Both you and the bot must have the 'Manage Channels' permission to use this command.", ephemeral=True)
+                return
+    
+            # Enable sending messages for @everyone
+            await channel.set_permissions(ctx.guild.default_role, send_messages=True, send_messages_in_threads=True)
+    
+            # Send unlock message
+            embed = discord.Embed(title="🔓 | Channel Unlock", description=f"{channel.mention} has been unlocked. \n **Reason**: \n{reason}", color=discord.Color.green())
+            await ctx.respond(embed=embed, ephemeral=False)
+    
+        except Exception as e:
+            await ctx.respond(f"You / bot may be missing {e.missing_perms} permission(s) to run this command.", ephemeral=True)
+    
+
 def setup(bot):
     bot.add_cog(Moderation(bot))

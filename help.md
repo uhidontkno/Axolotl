@@ -18,7 +18,9 @@
 * `/pfp [user]` - Returns the profile picture of you, or someone else. 
 * `/ui [user]` - Returns user information about you, or someone else.
 * `/si` - Returns server info about the current server
-### Proxys and Bypassing:
+* `/math` - Calculates an expression
+* `/weather [location]`- Grabs the weather for the specified location
+### Proxies and Bypassing:
 * `/proxy <type>` - Dispenses a proxy with a specific type, cooldown: 15 minutes / user.
 * `/proxy-stats` - Stats for every proxy availiable in the bot.
 ### Fun:
@@ -36,3 +38,5 @@
 * `/ben` - Talk to Talking Ben
 * `/menrate` wait what the fuc-
 * `/howmuchbrokeass` how broke are you?
+* `/rock-paper-scissors <option>` - Play Rock Paper Scissors with me!
+* `/apod [day]` - Grabs the current Astronomy Picture of The Day either for the specified day or the current day.

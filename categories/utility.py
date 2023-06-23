@@ -1,6 +1,10 @@
+import json
 import discord
 from discord.ext import commands
+import math
+import asyncio
 
+import requests
 class Utility(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -94,6 +98,7 @@ class Utility(commands.Cog):
         # Send the response
         response = f"```\n{servers}\n```"
         await ctx.respond(embed=discord.Embed(color=discord.Color.og_blurple(),title=f"Every server I'm inside of ({samt}):",description=f"{response}"), ephemeral = True)
+    
     @commands.slash_command(name="sinv", description="Get the invite link for a server by name.", options=[
     discord.Option(name="sn", description=None, type=3)
 ])
@@ -118,5 +123,77 @@ class Utility(commands.Cog):
             if channel.permissions_for(guild.me).create_instant_invite:
                 invite = await channel.create_invite(max_age=0, max_uses=1)
                 return invite.url
+
+
+    @commands.slash_command(name="math", description="uh, make me do some of your homework!")
+    async def calculate(self, ctx, expression: str = None, help: bool = False):
+     help_guide = """
+## `/math` Help Guide: \n 
+To do operations like rounding, square root, etc, you can do something like `math.sqrt(144)`. This can be done for any operation set by
+the C standard (or in Python), for simple operations, you can do `9+69/4*176`, if you need to use parentheses, you can do that by: `(99*0.33)+57`.
+ 
+## Cheat Sheet:\n
+
+* multiplication: `*`
+* addition: `+`
+* subtraction: `-`
+* division: `/`
+* to the power of: `math.pow` / `math.powf` / `math.powl` 
+(powf for floats (6.142), powl for longs)
+* square root: `math.sqrt`
+* sine: `math.sin`
+* cosine: `math.cosin`
+* floor: `math.floor`
+* ceil: `math.ceiling`
+     """
+     if help or expression == None:
+         await ctx.respond(embed=discord.Embed(title="", description=f"{help_guide}", color=discord.Color.blue()))
+         return
+ 
+     try:
+         result = eval(expression, {"__builtins__": None, "math": math})
+         await ctx.respond(f"The result of `{expression}` is: {result}")
+     except ZeroDivisionError:
+      await ctx.respond(f"EMERGENCY: DIVIDING BY ZERO!!! Activating Divide by 0 machine...")
+      await asyncio.sleep(1.11)
+      await ctx.respond(f"The Divide by 0 machine gave you this: \n The result of `{expression}` is: <https://www.youtube.com/watch?v=oHg5SJYRHA0> because you are a dumbass that tried dividing by 0.")
+     except Exception as e:
+         await ctx.respond(f"An error occurred while evaluating the expression: {e}\n\nIf you need help, make the `help` parameter `True`", ephemeral=True)
+    
+    @commands.slash_command()
+    async def weather(self, ctx, location: str):
+        api_key = "ed2c35261325435d8d3180351232206"
+        url = f"https://api.weatherapi.com/v1/forecast.json?key={api_key}&q={location}&days=4"
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            data = json.loads(response.text)
+            location_name = data["location"]["name"]
+            current_temp_c = data["current"]["temp_c"]
+            current_temp_f = data["current"]["temp_f"]
+            current_condition = data["current"]["condition"]["text"]
+            forecast_days = data["forecast"]["forecastday"]
+
+            embed = discord.Embed(title="Weather Information", description=f"Weather in {location_name}\nWeather provided by www.weatherapi.com", color=discord.Color.blue())
+            embed.add_field(name="Current Temperature", value=f"{current_temp_c}°C / {current_temp_f}°F", inline=True)
+            embed.add_field(name="Current Condition", value=current_condition, inline=True)
+            embed.add_field(name="    ", value="    ", inline=True)
+            for day in forecast_days[:3]:
+                date = day["date"]
+                forecast = day["day"]["condition"]["text"]
+                temp_c = day["day"]["avgtemp_c"]
+                temp_f = day["day"]["avgtemp_f"]
+                high_temp_c = day["day"]["maxtemp_c"]
+                high_temp_f = day["day"]["maxtemp_f"]
+                low_temp_c = day["day"]["mintemp_c"]
+                low_temp_f = day["day"]["mintemp_f"]
+                embed.add_field(name=f"Forecast for {date}", value=f"{forecast}\n{temp_c}°C / {temp_f}°F\nHigh: {high_temp_c}°C / {high_temp_f}°F\nLow: {low_temp_c}°C / {low_temp_f}°F", inline=True)
+            
+            await ctx.respond(embed=embed)
+        else:
+            await ctx.respond("Failed to retrieve weather information.")
+
+    
+
 def setup(client):
     client.add_cog(Utility(client))

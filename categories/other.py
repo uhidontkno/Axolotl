@@ -10,34 +10,34 @@ class Other(commands.Cog):
     @commands.slash_command(name="ping", description="Ping the bot")
     async def ping(self, ctx):
         await ctx.response.send_message(content="Pong!", ephemeral=False)
-    @commands.command(
+    @commands.slash_command(
         name="invite",
         description="Get the invite link for Axolotl",
     )
-    async def invite(self, ctx: commands.Context):
+    async def sendbotinvite(self, ctx: commands.Context):
         embed = discord.Embed(
             title="Invite Axolotl",
             description="Invite Axolotl to your server by following the below link:\nhttps://discord.com/api/oauth2/authorize?client_id=1116056397608656936&permissions=8&scope=bot%20applications.commands",
             color=0x5865f2
         )
-        await ctx.respond(embed=embed, ephemeral=True)
+        await ctx.respond(embed=embed, ephemeral=False)
     @commands.slash_command(
         name="status",
         description="View Axolotl's Status",
     )
-    async def invite(self, ctx: commands.Context):
+    async def status(self, ctx: commands.Context):
         embed = discord.Embed(
             title="Axolotl Status",
             description="View Axolotl's status and other IEvade services here: https://stats.uptimerobot.com/PqE16FvrB5",
             color=0x5865f2
         )
-        await ctx.respond(embed=embed, ephemeral=True)
+        await ctx.respond(embed=embed, ephemeral=False)
     @commands.slash_command(
         name="say-embed",
         description="Say a message, with a embed. (bot owner only)"
     )
     async def semsg(self, ctx: commands.Context, title: str = " ", color: str = None, description: str = " ",content: str = ""):
-        if (str(ctx.author.id) != "925430447050207294"):
+        if (str(ctx.author.id) != "925430447050207294" and str(ctx.author.id) != "1113660081108684820"):
             await ctx.respond(content="You must be the bot owner to use this command.",ephemeral=True);return
         embed = discord.Embed(
             title=title,
@@ -52,7 +52,7 @@ class Other(commands.Cog):
         description="Say a message (bot owner only)"
     )
     async def smsg(self, ctx: commands.Context, content: str):
-        if (str(ctx.author.id) != "925430447050207294"):
+        if (str(ctx.author.id) != "925430447050207294" and str(ctx.author.id) != "1113660081108684820"):
             await ctx.respond(content="You must be the bot owner to use this command.",ephemeral=True);return
         await ctx.send(content=content)
         await ctx.respond(content="Done.",ephemeral=True)
